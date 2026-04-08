@@ -241,60 +241,15 @@ textarea {
 
 .hero-section {
   position: relative;
-  overflow: clip;
+  overflow: visible;
+  /* Ensure the entire background image is visible without cropping */
   background:
-    linear-gradient(rgba(13, 10, 11, 0.5), rgba(13, 10, 11, 0.65)),
-    radial-gradient(circle at 30% 60%, rgba(247, 122, 45, 0.25), transparent 30%),
-    radial-gradient(circle at 74% 46%, rgba(255, 200, 79, 0.12), transparent 24%),
-    linear-gradient(90deg, #141216 0%, #2c2324 50%, #1e1513 100%);
-}
-
-.hero-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 52% 48%, rgba(255, 255, 255, 0.08), transparent 24%),
-    linear-gradient(90deg, transparent 20%, rgba(255, 255, 255, 0.03) 50%, transparent 80%);
-  pointer-events: none;
-}
-
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  align-items: center;
-  min-height: 400px;
-  gap: 20px;
-  padding: 54px 0 56px;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  color: rgba(255, 255, 255, 0.72);
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.76rem;
-}
-
-.hero-copy h2 {
-  margin: 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  font-weight: 700;
-  color: #ffdd67;
-  text-shadow:
-    0 2px 0 #7a5315,
-    0 4px 0 #6b4212,
-    0 18px 36px rgba(0, 0, 0, 0.42);
-  line-height: 0.92;
-}
-
-.hero-copy p:last-child {
-  max-width: 520px;
-  margin: 22px 0 0;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 1.05rem;
-  line-height: 1.7;
+    linear-gradient(rgba(13, 10, 11, 0.2), rgba(13, 10, 11, 0.3)),
+    url("images/Frame\ 3.png") center center / 100% 100% no-repeat;
+  /* Set a fixed aspect ratio to show the whole banner image */
+  aspect-ratio: 4 / 1;
+  width: 100%;
+  margin-bottom: 110px; /* Space for the book to poke out */
 }
 
 .book-mockup {
@@ -363,9 +318,24 @@ textarea {
   opacity: 0.9;
 }
 
-.hero-book {
-  width: min(310px, 72%);
-  justify-self: center;
+.hero-visual {
+  position: absolute;
+  right: 8%; /* Position book to the right */
+  bottom: -60px; /* Poke out of the section slightly */
+  width: min(38%, 340px); /* Responsive width */
+  z-index: 10;
+}
+
+.hero-book-img {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.6));
+  transform: rotate(5deg); /* Slight tilt for realism */
+}
+
+@media (max-width: 720px) {
+  .hero-section { aspect-ratio: 3 / 1; margin-bottom: 84px; }
+  .hero-visual { width: min(64%, 280px); right: 6%; bottom: -42px; }
 }
 
 .author-grid {
@@ -392,13 +362,7 @@ textarea {
 
 .author-photo {
   aspect-ratio: 0.83;
-  background:
-    radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.7), transparent 16%),
-    radial-gradient(circle at 50% 38%, #d7d7d7 0 16%, transparent 16.5%),
-    radial-gradient(circle at 50% 36%, #7f7f7f 0 7%, transparent 7.5%),
-    radial-gradient(circle at 50% 58%, #0f0f10 0 20%, transparent 20.5%),
-    linear-gradient(180deg, #f0f0f0 0 27%, #474747 27% 63%, #111 63% 100%);
-  filter: grayscale(1);
+  background: url("images/yul.png") center / cover no-repeat;
 }
 
 .author-copy {
@@ -450,23 +414,20 @@ textarea {
 
 .book-panel-one {
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.76)),
-    radial-gradient(circle at 70% 16%, rgba(255, 174, 82, 0.18), transparent 20%),
-    linear-gradient(145deg, #415347, #141414 68%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
+    url("images/Yul Book 1.png") center center / cover no-repeat;
 }
 
 .book-panel-two {
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.76)),
-    radial-gradient(circle at 26% 14%, rgba(255, 191, 94, 0.2), transparent 20%),
-    linear-gradient(145deg, #70573b, #19130f 68%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
+    url("images/Bello.png") center center / cover no-repeat;
 }
 
 .book-panel-three {
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.76)),
-    radial-gradient(circle at 78% 20%, rgba(255, 244, 198, 0.16), transparent 18%),
-    linear-gradient(145deg, #55565f, #141414 68%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
+    url("images/Trajedy.png") center center / cover no-repeat;
 }
 
 .book-panel h3 {
@@ -524,6 +485,13 @@ textarea {
   min-height: 470px;
   background: radial-gradient(circle at 25% 20%, rgba(235, 194, 119, 0.2), transparent 20%),
     linear-gradient(135deg, #6f5945 0%, #2d1e18 45%, #171310 100%);
+}
+
+.book-about-img {
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.35));
+  transform: rotate(4deg);
 }
 
 .book-about-copy {
@@ -584,18 +552,14 @@ textarea {
 }
 
 .video-card {
-  width: min(100%, 930px);
-  aspect-ratio: 16 / 9;
+  width: min(980px, 100%);
+  height: 420px;
   position: relative;
   overflow: hidden;
   border-radius: 14px;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.55)),
-    radial-gradient(circle at 32% 22%, rgba(222, 79, 36, 0.92), transparent 24%),
-    radial-gradient(circle at 50% 42%, rgba(245, 165, 79, 0.84), transparent 18%),
-    radial-gradient(circle at 74% 28%, rgba(75, 132, 196, 0.88), transparent 22%),
-    radial-gradient(circle at 88% 38%, rgba(117, 230, 255, 0.58), transparent 18%),
-    linear-gradient(135deg, #2b171a 0%, #25131d 28%, #1f2d55 62%, #0f2430 100%);
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)),
+    url("images/Frame 3.png") center center / cover no-repeat;
   box-shadow: 0 28px 60px rgba(15, 10, 8, 0.26);
 }
 
@@ -718,7 +682,7 @@ textarea {
 
 .book-stack {
   position: relative;
-  height: 230px;
+  height: auto;
   margin-top: 52px;
 }
 
@@ -737,6 +701,14 @@ textarea {
   left: 86px;
   bottom: 0;
   transform: rotate(6deg);
+}
+
+/* Image-based stack replacement */
+.book-stack img {
+  display: block;
+  width: 220px;
+  height: auto;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25));
 }
 
 .contact-form {
