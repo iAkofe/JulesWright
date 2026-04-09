@@ -362,7 +362,7 @@ textarea {
 
 .author-photo {
   aspect-ratio: 0.83;
-  background: url("images/yul.png") center / cover no-repeat;
+  background: url("images/Frame\ 7.png") center / cover no-repeat;
 }
 
 .author-copy {
@@ -381,91 +381,143 @@ textarea {
   background: var(--soft);
 }
 
+.platforms-section {
+  background: transparent;
+}
+
 .book-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  overflow: hidden;
+  display: flex;
+  overflow: visible;
   margin: 0 auto;
-  background: #111;
+  background: transparent;
+  max-width: 1200px;
+  align-items: center;
+  min-height: 500px;
 }
 
 .book-panel {
-  min-height: 245px;
+  flex: 1;
+  min-height: 340px;
   display: flex;
-  align-items: end;
-  padding: 26px 30px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
   position: relative;
-  color: #fff;
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.72)),
-    radial-gradient(circle at 78% 24%, rgba(255, 218, 154, 0.24), transparent 22%),
-    linear-gradient(145deg, #29302a, #1a1716 70%);
+  color: #111;
+  cursor: pointer;
+  transition: flex 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  filter: grayscale(1) opacity(0.5);
+  transform: scale(0.92);
+  z-index: 1;
+  background: transparent !important;
+}
+
+.carousel-book-img {
+  width: auto;
+  height: 220px;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.15));
+  margin-bottom: 20px;
+  transition: height 0.6s ease, filter 0.6s ease;
+}
+
+.book-panel.active .carousel-book-img {
+  height: 320px;
+  filter: drop-shadow(0 25px 50px rgba(0,0,0,0.25));
+}
+
+.book-panel.active {
+  flex: 2.8;
+  filter: grayscale(0) opacity(1);
+  transform: scale(1);
+  min-height: 480px;
+  z-index: 2;
+  color: #000;
 }
 
 .book-panel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(120deg, transparent 0 38%, rgba(217, 197, 148, 0.18) 39% 40%, transparent 41%),
-    linear-gradient(90deg, transparent 0 70%, rgba(255, 255, 255, 0.04) 70% 100%);
-  mix-blend-mode: screen;
+  display: none;
 }
 
-.book-panel-one {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
-    url("images/Yul Book 1.png") center center / cover no-repeat;
-}
-
-.book-panel-two {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
-    url("images/Bello.png") center center / cover no-repeat;
-}
-
+.book-panel-one,
+.book-panel-two,
 .book-panel-three {
-  background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.75)),
-    url("images/Trajedy.png") center center / cover no-repeat;
+  background: transparent !important;
 }
 
 .book-panel h3 {
   position: relative;
   z-index: 1;
   margin: 0;
-  max-width: 210px;
+  max-width: 280px;
   font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(2rem, 3vw, 3.1rem);
-  font-weight: 500;
-  line-height: 0.95;
+  font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+  transition: transform 0.4s ease, font-size 0.4s ease;
+}
+
+.book-panel.active h3 {
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  transform: translateY(0);
 }
 
 .book-actions {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 12px;
-  padding: 16px 0 0 76px;
+  width: fit-content;
+  margin: -35px auto 0;
+  padding: 10px 14px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  position: relative;
+  z-index: 10;
+}
+
+.book-actions .button {
+  border-radius: 12px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 0.88rem;
+  background: #000;
+  color: #fff;
+  border: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.book-actions .button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
 }
 
 .logo-grid {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 18px;
-  max-width: 950px;
-  margin: 42px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 60px auto 0;
 }
 
-.logo-grid span {
-  display: grid;
-  place-items: center;
-  min-height: 58px;
-  padding: 12px;
-  background: #fff;
-  border: 1px solid rgba(17, 17, 17, 0.05);
-  box-shadow: 0 16px 28px rgba(23, 18, 13, 0.08);
-  font-weight: 700;
-  color: #6b6059;
+.logo-grid img {
+  height: 45px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.logo-grid img:hover {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 .book-about {
@@ -557,10 +609,30 @@ textarea {
   position: relative;
   overflow: hidden;
   border-radius: 14px;
+  box-shadow: 0 28px 60px rgba(15, 10, 8, 0.26);
+  display: none;
+}
+
+.video-card.active {
+  display: block;
+}
+
+.video-card-1 {
   background:
     linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)),
     url("images/Frame 3.png") center center / cover no-repeat;
-  box-shadow: 0 28px 60px rgba(15, 10, 8, 0.26);
+}
+
+.video-card-2 {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)),
+    url("images/Frame 7.png") center center / cover no-repeat;
+}
+
+.video-card-3 {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.55)),
+    url("images/Frame 9.png") center center / cover no-repeat;
 }
 
 .live-badge,
@@ -1280,7 +1352,19 @@ textarea {
     line-height: 1.75;
   }
 
-  .book-strip,
+  .book-strip {
+    flex-direction: column;
+  }
+  
+  .book-panel {
+    flex: none;
+    min-height: 220px;
+  }
+  
+  .book-panel.active {
+    min-height: 380px;
+  }
+
   .testimonial-grid,
   .logo-grid,
   .stat-row {

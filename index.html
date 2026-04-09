@@ -80,33 +80,33 @@
           </div>
 
           <div class="book-strip" id="books">
-            <article class="book-panel book-panel-one">
+            <article class="book-panel active" data-book="yul-younger">
+              <img src="images/Book_Mockup_3 copy 1.png" alt="Yul the Younger" class="carousel-book-img">
               <h3>Yul the Younger</h3>
             </article>
-            <article class="book-panel book-panel-two">
+            <article class="book-panel" data-book="bello-gallico">
+              <img src="images/Bello.png" alt="Yul’s De Bello Gallico" class="carousel-book-img">
               <h3>Yul’s De Bello Gallico</h3>
             </article>
-            <article class="book-panel book-panel-three">
+            <article class="book-panel" data-book="spanish-tragedy">
+              <img src="images/Trajedy.png" alt="Yul’s Spanish Tragedy" class="carousel-book-img">
               <h3>Yul’s Spanish Tragedy</h3>
             </article>
           </div>
 
           <div class="book-actions">
-            <a class="button button-dark small" href="contact.html">Buy in English</a>
-            <a class="button button-dark small" href="contact.html">Buy in Spanish</a>
+            <a class="button button-dark small" id="buy-now" href="#">Buy Now</a>
+            <a class="button button-dark small" id="buy-amazon" href="#">Buy on Amazon</a>
           </div>
 
           <div class="logo-grid" aria-label="Publishing platform logos">
-            <span>Weltbild</span>
-            <span>Morawa</span>
-            <span>LibriVox</span>
-            <span>iBooks</span>
-            <span>goodreads</span>
-            <span>Bolinda</span>
-            <span>Barnes &amp; Noble</span>
-            <span>Perusall</span>
-            <span>amazon</span>
-            <span>Rakuten kobo</span>
+            <img src="images/logo-wb-1.png" alt="Weltbild">
+            <img src="images/mow-logo-768x290.png" alt="Morawa">
+            <img src="images/275-2756708_ibook-icon-ibooks-transparent-background-removebg-preview.png" alt="iBooks">
+            <img src="images/Amazon_logo.svg.png" alt="amazon">
+            <img src="images/rakuten-kobo-landscape.png" alt="Rakuten kobo">
+            <img src="images/1280px-Barnes__Noble_logo.svg.png" alt="Barnes &amp; Noble">
+            <img src="images/R-1-1-1-768x226.png" alt="Lulu">
           </div>
         </div>
       </section>
@@ -139,16 +139,30 @@
           </div>
 
           <div class="trailer-tabs" role="tablist" aria-label="Book trailers">
-            <button class="trailer-tab active" type="button">1 Yul the Younger</button>
-            <button class="trailer-tab" type="button">2 Yul’s De Bello Gallico</button>
-            <button class="trailer-tab" type="button">3 Yul’s Spanish Tragedy</button>
+            <button class="trailer-tab active" type="button" data-tab="trailer-1">1 Yul the Younger</button>
+            <button class="trailer-tab" type="button" data-tab="trailer-2">2 Yul’s De Bello Gallico</button>
+            <button class="trailer-tab" type="button" data-tab="trailer-3">3 Yul’s Spanish Tragedy</button>
           </div>
 
-          <div class="video-card" aria-label="Trailer placeholder">
+          <div class="video-card video-card-1 active" id="trailer-1" aria-label="Trailer for Yul the Younger">
             <div class="live-badge">LIVE</div>
             <div class="play-button" aria-hidden="true"></div>
-            <div class="video-meta-left">THE LEGEND OF LEGEND</div>
-            <div class="video-meta-right">32 viewers</div>
+            <div class="video-meta-left">YUL THE YOUNGER</div>
+            <div class="video-meta-right">EPISODE 01 / 2:34</div>
+          </div>
+
+          <div class="video-card video-card-2" id="trailer-2" aria-label="Trailer for Yul’s De Bello Gallico">
+            <div class="live-badge">LIVE</div>
+            <div class="play-button" aria-hidden="true"></div>
+            <div class="video-meta-left">YUL’S DE BELLO GALLICO</div>
+            <div class="video-meta-right">EPISODE 02 / 3:15</div>
+          </div>
+
+          <div class="video-card video-card-3" id="trailer-3" aria-label="Trailer for Yul’s Spanish Tragedy">
+            <div class="live-badge">LIVE</div>
+            <div class="play-button" aria-hidden="true"></div>
+            <div class="video-meta-left">YUL’S SPANISH TRAGEDY</div>
+            <div class="video-meta-right">EPISODE 03 / 2:50</div>
           </div>
         </div>
       </section>
@@ -198,7 +212,7 @@
             <p>Don’t hesitate to contact with us for any inquiries.</p>
 
             <div class="book-stack" aria-hidden="true">
-              <img src="images/Frame 11.png" alt="Yul the Younger books" />
+              <img src="images/Book_Mockup_3 copy 1.png" alt="Yul the Younger books" />
             </div>
           </div>
 
@@ -253,5 +267,6 @@
       </div>
     </footer>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
