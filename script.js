@@ -29,47 +29,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return storefront.books[bookId] ?? null;
   };
 
-  const ensureStripeBuyButtonScript = (() => {
-    let loadPromise = null;
-
-    return () => {
-      if (window.customElements?.get?.('stripe-buy-button')) return Promise.resolve();
-      if (loadPromise) return loadPromise;
-
-      loadPromise = new Promise((resolve, reject) => {
-        const existing = document.querySelector('script[data-stripe-buy-button]');
-        if (existing) {
-          existing.addEventListener('load', () => resolve(), { once: true });
-          existing.addEventListener('error', () => reject(new Error('Failed to load Stripe Buy Button')), { once: true });
-          return;
-        }
-
-        const script = document.createElement('script');
-        script.src = 'https://js.stripe.com/v3/buy-button.js';
-        script.async = true;
-        script.dataset.stripeBuyButton = 'true';
-        script.addEventListener('load', () => resolve(), { once: true });
-        script.addEventListener('error', () => reject(new Error('Failed to load Stripe Buy Button')), { once: true });
-        document.head.appendChild(script);
-      });
-
-      return loadPromise;
-    };
-  })();
-
-  const ensureCheckoutModal = (() => {
+  const ensureUnavailableCheckoutModal = (() => {
     let modalState = null;
 
     const closeModal = () => {
       if (!modalState) return;
-
       modalState.backdrop.hidden = true;
+      modalState.title.textContent = 'Buy Now';
       modalState.body.replaceChildren();
+      document.body.style.overflow = '';
       if (modalState.previousFocus && typeof modalState.previousFocus.focus === 'function') {
         modalState.previousFocus.focus();
       }
       modalState.previousFocus = null;
-      document.body.style.overflow = '';
     };
 
     const openModal = (bookId) => {
@@ -81,46 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = 'hidden';
 
       modalState.title.textContent = `Buy Now: ${book.title}`;
+      modalState.body.replaceChildren();
 
-      const buyButtonId = storefront.stripe.buyButtonIds[bookId] ?? '';
-      const publishableKey = storefront.stripe.publishableKey ?? '';
+      const message = document.createElement('p');
+      message.className = 'checkout-message';
+      message.textContent = "Checkout isn't available yet.";
 
-      if (!buyButtonId || !publishableKey) {
-        const message = document.createElement('p');
-        message.className = 'checkout-message';
-        message.textContent = 'Checkout is not available yet.';
+      const amazonLink = document.createElement('a');
+      amazonLink.className = 'button button-dark';
+      amazonLink.href = book.amazonUrl;
+      amazonLink.target = '_blank';
+      amazonLink.rel = 'noopener noreferrer';
+      amazonLink.textContent = 'Buy on Amazon';
 
-        const amazonLink = document.createElement('a');
-        amazonLink.className = 'button button-dark';
-        amazonLink.href = book.amazonUrl;
-        amazonLink.target = '_blank';
-        amazonLink.rel = 'noopener noreferrer';
-        amazonLink.textContent = 'Buy on Amazon';
+      const actions = document.createElement('div');
+      actions.className = 'checkout-actions';
+      actions.appendChild(amazonLink);
 
-        const actions = document.createElement('div');
-        actions.className = 'checkout-actions';
-        actions.appendChild(amazonLink);
-
-        modalState.body.append(message, actions);
-        modalState.dialog.focus();
-        return;
-      }
-
-      ensureStripeBuyButtonScript()
-        .then(() => {
-          const stripeButton = document.createElement('stripe-buy-button');
-          stripeButton.setAttribute('buy-button-id', buyButtonId);
-          stripeButton.setAttribute('publishable-key', publishableKey);
-          modalState.body.replaceChildren(stripeButton);
-          modalState.dialog.focus();
-        })
-        .catch(() => {
-          const message = document.createElement('p');
-          message.className = 'checkout-message';
-          message.textContent = 'Checkout is temporarily unavailable.';
-          modalState.body.replaceChildren(message);
-          modalState.dialog.focus();
-        });
+      modalState.body.append(message, actions);
+      modalState.dialog.focus();
     };
 
     return () => {
@@ -148,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const closeBtn = document.createElement('button');
       closeBtn.className = 'checkout-close';
       closeBtn.type = 'button';
-      closeBtn.setAttribute('aria-label', 'Close checkout');
+      closeBtn.setAttribute('aria-label', 'Close');
       closeBtn.textContent = '×';
       closeBtn.addEventListener('click', closeModal);
 
@@ -167,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       document.addEventListener('keydown', (event) => {
         if (event.key !== 'Escape') return;
-        if (!modalState?.backdrop || modalState.backdrop.hidden) return;
+        if (!modalState || modalState.backdrop.hidden) return;
         closeModal();
       });
 
@@ -197,8 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const bookPanels = document.querySelectorAll('.book-panel');
   const buyNowBtn = document.getElementById('buy-now');
   const buyAmazonBtn = document.getElementById('buy-amazon');
-
-  const checkout = ensureCheckoutModal();
+  const checkoutModal = ensureUnavailableCheckoutModal();
 
   const getActiveCarouselBookId = () => {
     const activePanel = document.querySelector('.book-panel.active');
@@ -247,6 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
 
     const bookId = trigger.getAttribute('data-book-id') ?? getActiveCarouselBookId();
-    checkout.openModal(bookId);
+    checkoutModal.openModal(bookId);
   });
 });
