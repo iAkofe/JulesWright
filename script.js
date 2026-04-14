@@ -29,6 +29,61 @@ document.addEventListener('DOMContentLoaded', () => {
     return storefront.books[bookId] ?? null;
   };
 
+  const navToggles = document.querySelectorAll('.nav-toggle');
+  let activeNavRow = null;
+
+  const closeActiveNav = () => {
+    if (!activeNavRow) return;
+    const toggle = activeNavRow.querySelector('.nav-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    activeNavRow.classList.remove('nav-open');
+    activeNavRow = null;
+  };
+
+  navToggles.forEach((toggle) => {
+    const navId = toggle.getAttribute('aria-controls');
+    const row = toggle.closest('.header-row');
+    const nav = navId ? document.getElementById(navId) : null;
+    if (!row || !nav) return;
+
+    toggle.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const isOpen = row.classList.contains('nav-open');
+      if (activeNavRow && activeNavRow !== row) closeActiveNav();
+
+      if (isOpen) {
+        closeActiveNav();
+        return;
+      }
+
+      activeNavRow = row;
+      row.classList.add('nav-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    });
+
+    nav.addEventListener('click', (event) => {
+      if (!event.target.closest('a')) return;
+      closeActiveNav();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!activeNavRow) return;
+    if (activeNavRow.contains(event.target)) return;
+    closeActiveNav();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return;
+    closeActiveNav();
+  });
+
+  window.addEventListener('resize', () => {
+    closeActiveNav();
+  });
+
   const ensureUnavailableCheckoutModal = (() => {
     let modalState = null;
 
