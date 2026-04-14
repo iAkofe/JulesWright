@@ -169,6 +169,10 @@ textarea {
   transform: scaleX(1);
 }
 
+.nav-cta {
+  display: none;
+}
+
 .nav-toggle {
   display: none;
   align-items: center;
@@ -1396,6 +1400,16 @@ textarea {
   .site-header-dark .site-nav {
     background: rgba(0, 0, 0, 0.92);
     color: rgba(255, 255, 255, 0.92);
+  }
+
+  .site-nav .nav-cta {
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .site-header-dark .site-nav .nav-cta {
+    background: #fff;
+    color: #111;
   }
 
   .masthead {
