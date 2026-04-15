@@ -190,6 +190,12 @@ document.addEventListener('DOMContentLoaded', () => {
     tab.addEventListener('click', () => {
       const targetId = tab.getAttribute('data-tab');
 
+      const currentlyActive = document.querySelector('.video-card.active');
+      if (currentlyActive && currentlyActive.id !== targetId) {
+        const iframe = currentlyActive.querySelector('iframe');
+        if (iframe) iframe.src = iframe.src;
+      }
+
       trailerTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
