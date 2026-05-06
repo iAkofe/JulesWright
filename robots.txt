@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /checkout.html
+Sitemap: https://www.juleswright.com/sitemap.xml
